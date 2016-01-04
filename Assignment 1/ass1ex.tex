@@ -1,0 +1,251 @@
+\documentclass[11pt]{article}
+\usepackage{fancyheadings,multicol}
+\usepackage{amsmath,amssymb}
+
+
+\setlength{\textheight}{\paperheight}
+\addtolength{\textheight}{-2in}
+\setlength{\topmargin}{-.5in}
+\setlength{\headsep}{.5in}
+\addtolength{\headsep}{-\headheight}
+\setlength{\footskip}{.5in}
+\setlength{\textwidth}{\paperwidth}
+\addtolength{\textwidth}{-2in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\flushbottom
+
+\allowdisplaybreaks
+
+\pagestyle{fancyplain}
+\let\headrule=\empty
+\let\footrule=\empty
+\lhead{\fancyplain{}{Fall 2015}}
+\rhead{\fancyplain{}{CSCI-B555: Machine Learning}}
+\cfoot{{\thepage/\pageref{EndOfAssignment}}}
+
+\newcounter{totalmarks}
+\setcounter{totalmarks}{0}
+\newcounter{questionnumber}
+\setcounter{questionnumber}{0}
+\newcounter{subquestionnumber}[questionnumber]
+\setcounter{subquestionnumber}{0}
+\renewcommand{\thesubquestionnumber}{(\alph{subquestionnumber})}
+\newcommand{\question}[2][]%
+  {\ifx\empty#2\empty\else
+   \addtocounter{totalmarks}{#2}\refstepcounter{questionnumber}\fi
+   \bigskip\noindent\textbf{\Large Question \thequestionnumber. } #1
+   {\scshape\ifx\empty#2\empty(continued)\else
+   [#2 mark\ifnum #2 > 1 s\fi]\fi}\par
+   \medskip\noindent\ignorespaces}
+\newcommand{\subquestion}[2][]%
+  {\ifx\empty#2\empty\else\refstepcounter{subquestionnumber}\fi
+   \medskip\noindent\textbf{\large \thesubquestionnumber } #1
+   {\scshape\ifx\empty#2\empty(continued)\else
+   [#2 mark\ifnum #2 > 1 s\fi]\fi}
+   \smallskip\noindent\ignorespaces}
+\newcommand{\bonus}[2][]%
+  {\bigskip\noindent\textbf{\Large Bonus. } #1
+   {\scshape\ifx\empty#2\empty(continued)\else
+   [#2 mark\ifnum #2 > 1 s\fi]\fi}\par
+   \medskip\noindent\ignorespaces}
+
+\usepackage{totcount}
+\regtotcounter{totalmarks}
+
+
+% You can also define new variables to make it easier
+% and avoid long commands
+\newcommand{\muvec}{\boldsymbol{\mu}}
+
+\begin{document}
+
+\thispagestyle{plain}
+
+\begin{center}
+\bfseries
+{\Large Homework Assignment \# 1}\\
+   Due: Wednesday, September 16, 2015, 11:59 p.m. \\
+   Total marks: \total{totalmarks}
+\end{center}
+
+\question{5}
+Let  $(\Omega,\mathcal{F},P)$ be a probability space. 
+Using only the set operations and axioms of probability, 
+show that for any two sets, not necessarily disjoint, $A\subseteq \Omega$ and $B\subseteq \Omega$
+%
+\begin{align*}
+P(A \cup B)=P(A)+P(B)-P(A \cap B)
+\end{align*}
+
+\question{5}
+Prove the following expression or provide a counterexample if it does not hold
+%
+\begin{align*}
+P(A)=P(A|B)+P(A|B^c)
+\end{align*}
+
+\question{15}
+Two players perform a series of coin tosses. 
+Player one wins a toss if the coin turns heads and player two wins a toss if it turns tails. 
+The game is played until one player wins $n$ times. 
+However, the game is interrupted when player one had $m$ wins 
+and player two had $l$ wins, where $0\le m < n$ and $0\le l < n$.
+
+\subquestion{5} 
+Assuming $n=8, m=4$, and $l=6$, 
+what is the probability that player one would win the game if the game was to be continued later?
+
+\subquestion{10} 
+Derive the general expression or write an algorithm that player one will win the game if the game is to be continued later. 
+Your expression should be a function of $m$, $l$, and $n$. 
+If you are providing an algorithm, implement it and submit your code along with your pseudo-code. 
+You may not simulate the game as your solution.
+
+\question{10}
+Let $X_1, \ldots, X_m$ be multivariate Gaussian random variables, with $X_i \sim \mathcal{N}(\muvec_i, \boldsymbol{\Sigma}_i)$, with $\muvec_i \in \mathbb{R}^d$ for dimension $d \in \mathbb{N}$. 
+Define $X = a_1 X_1 + a_2 X_2 + \ldots + a_m X_m$ as a convex combination, $a_i \ge 0$ and $\sum_{i=1}^m a_i = 1$. 
+
+\subquestion{3}
+Derive the expected value $E[X]$. What is the dimension of $E[X]$?
+
+\subquestion{7}
+Derive the covariance $\text{Cov}[X]$. What is the dimension of $\text{Cov}[X]$?
+
+\question{15}
+ Suppose you have three coins. Coin A has a probability of
+  heads of $0.75$, Coin B has a probability of heads of $0.5$, 
+  and Coin C has a probability of heads of $0.25$.
+  
+  \subquestion{5} Suppose you flip all three coins at once, and let $X$ be the number of
+  heads you see (which will be between 0 and 3).
+  What is the expected value of $X$, $E[X]$?
+  
+\subquestion{10} Suppose instead you put all three coins in your
+  pocket, select one at random, and then flip that coin 5 times. You
+  notice that 3 of the 5 flips result in heads while the other 2 are
+  tails. What is the probability that you chose Coin C?
+
+\question{10}
+Let $X$, $Y$, and $Z$ be discrete random variables defined as functions on the same probability space $(\Omega,\mathcal{F},P)$. Prove or disprove the following expression 
+%
+\begin{align*}
+P_{X|Y}(X=x|Y=y)=\sum_{z\in \Omega}P_{X|YZ}(X=x|Y=y,Z=z)P_{Z|Y}(Z=z|Y=y)
+\end{align*}
+
+
+\question{5}
+Consider rolling two dice 24 times. A player wins if two sixes occur at least once. Otherwise, the house wins. Derive the probability that the player wins.
+
+\question{5}
+Consider a measurable space $(\Omega,\mathcal{F})$, where $\Omega=[0, 1]$ 
+and $\mathcal{F}=B(\Omega)$. Let $P$ be a set function on $(\Omega,\mathcal{F})$ as follows
+%
+\begin{align*}
+P(A)=
+\left\{
+  \begin{array}{ll}
+    1/2 &  \text{if } 0 \in A \text{ or } 1 \in A, \text{ but not both}\\
+    1 &  \text{if } 0 \in A \text{ and } 1 \in A\\
+    0 & \text{otherwise}
+  \end{array}
+\right.
+\end{align*}
+%
+%
+Is $P$ a probability distribution? Show all your work.
+
+
+\question{10}
+This question uses Figure 1.5 in the notes, for the three random variables $X$, $Y$ and $Z$.
+Derive $P(Y = 1 | X=1, Z=1)$; show your steps.
+
+\question{10}
+This question involves some simple simulations, to better visualize
+random variables and get some intuition for sampling,
+which is a central theme in machine learning. 
+Use the attached code called \verb+simulate.py+.
+This code is a simple script for sampling and plotting
+with python; play with some of the parameters to see what it is doing.
+Calling \verb+simulate.py+ runs with default parameters;
+\verb+simulate.py 1 100+ simulates 100 samples from a 1d Gaussian. 
+
+\subquestion{5}
+Run the code for 10, 100 and 1000 samples with dim=1 and $\sigma = 1.0$.
+Next run the code for 10, 100 and 1000 samples with dim=1 and $\sigma = 10.0$.
+What do you notice about the sample mean?
+
+\subquestion{5}
+The current covariance for dim=3 is 
+%
+\begin{align*}
+\Sigma = \left[ \begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1\end{array} \right]
+.
+\end{align*}
+%
+%
+What does that mean about the multivariate Gaussian (i.e., about $X$, $Y$ and $Z$)?
+Change the covariance to
+%
+\begin{align*}
+\Sigma = \left[ \begin{array}{ccc}
+1 & 0 & 1 \\
+0 & 1 & 0 \\
+1 & 0 & 1\end{array} \right]
+.
+\end{align*}
+%
+%
+What happens?
+
+\bonus{20}
+High dimensional spaces.
+
+\subquestion{10}
+Show that in a high dimensional space, 
+most of the volume of a cube is concentrated in corners, 
+which themselves become very long ``spikes". 
+Hints: compute the ratio of the volume of a hypersphere of radius a to the volume 
+of a hypercube of side 2a and also the ratio of the distance from the center 
+of the hypercube to one of the corners divided by the perpendicular distance to one of the edges.
+
+\subquestion{10}
+Show that for points which are uniformly distributed inside a sphere in $d$ dimensions 
+where $d$ is large, almost all of the points are concentrated in a thin shell close to the surface. 
+Hints: compute the fraction of the volume of the sphere which lies at values 
+of the radius between $a-\epsilon$ and $0<\epsilon<a$; 
+evaluate this fraction for $\epsilon=0.01a$ and also for 
+$\epsilon=0.5a$ for $d\in \{2, 3, 10, 100\}$.
+
+\vspace{0.5cm}
+\begin{center}
+{\large \textbf{Homework policies:}}
+\end{center}
+Your assignment must be typed; for example, in Latex, Microsoft Word, Lyx, etc. 
+Images may be scanned and inserted into the document if it is too complicated to draw them properly. 
+Submit a single pdf document or, if you are attaching your code, 
+submit your code together with the typed (single) document as one .zip file.
+All code (if applicable) should be turned in when you submit your assignment. 
+Use Matlab, Python, R, Java or C.
+Policy for late submission assignments: Unless there are legitimate circumstances, late assignments will be accepted up to 5 days after the due date and graded using the following rule: 
+\begin{enumerate}
+\itemsep0em 
+\item[]    on time:	your score × 1
+ \item[]   1 day late: 	your score × 0.9
+\item[]    2 days late: 	your score × 0.7
+\item[]    3 days late: 	your score × 0.5
+ \item[]   4 days late: 	your score × 0.3
+ \item[]   5 days late: 	your score × 0.1
+\end{enumerate}
+For example, this means that if you submit 3 days late and get 80 points for your answers, your total number of points will be $80 \times 0.5 = 40$ points.
+All assignments are individual, except when collaboration is explicitly allowed. All the sources used for problem solution must be acknowledged, e.g. web sites, books, research papers, personal communication with people, etc. Academic honesty is taken seriously; for detailed information see Indiana University Code of Student Rights, Responsibilities, and Conduct.
+\begin{center}
+{\large \textbf{Good luck!}}
+\end{center}
+
+\label{EndOfAssignment}%
+
+\end{document}

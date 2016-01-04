@@ -1,0 +1,239 @@
+\documentclass[12pt]{article}
+\renewcommand{\baselinestretch}{1.05}
+\usepackage{amsmath,amsthm,verbatim,amssymb,amsfonts,amscd, graphicx}
+\usepackage{graphics}
+\topmargin0.0cm
+\headheight0.0cm
+\headsep0.0cm
+\oddsidemargin0.0cm
+\textheight23.0cm
+\textwidth16.5cm
+\footskip1.0cm
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem*{surfacecor}{Corollary 1}
+\newtheorem{conjecture}{Conjecture} 
+\newtheorem{question}{Question} 
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\begin{document}
+ 
+
+\title{B555: Assignment 1}
+\author{Pawan Patel}
+\maketitle
+
+\begin{enumerate}
+
+% Problem 1
+\item
+Let $A, B \in \mathcal{F}$. Notice that $P(A \cup B) = P(A \cup (B \cap A^c)) = P(A) + P(B \cap A^c)$, since $A$, $B \cap A^c$ are disjoint. Likewise, notice that $P(B) = P((A \cap B) \cup (B \cap A^c)) = P(A \cap B) + P(B \cap A^c) \implies P(B \cap A^c) = P(B) - P(A \cap B)$, since $A \cap B$ and $B \cap A^c$ are disjoint. Thus, we have $P(A \cup B) = P(A) + P(B) - P(A \cap B)$.
+
+\vspace{1pc}
+
+
+% Problem 2
+\item
+The statement is false. Consider a fair coin being flipped twice independently. Let $A=$ the event that the first coin is Heads. Let $B=$ the event that the second coin is Heads. Then, $P(A|B) + P(A|B^c) = P(A) + P(A) = 1 \neq 1/2 = P(A) $
+
+\vspace{1pc}
+
+
+%Problem 3
+\item
+
+a) For player 1 to win, there needs to be four heads before two tails. So he can either win in four flips they're all Heads or in 5 flips if the last one is heads and there are 3Hs and 1 Ts in the first flour. Thus, the probability Player 1 wins is $(1/2)^4 + 4(1/2)^5$.
+
+\vspace{1pc}
+
+b) Notice that player 1 needs $(n-m)$ heads to win and player 2 needs $n-l$ tails to win. In $n-m + n-l -1$ flips, the game must end as there must then be at least $n-m$ heads or $n-l$ tails. Moreover, in $n-m + n-l -1$ flips, only one could have won. That is to say, in that many flips, there cannot be both $n-m$ heads and $n-l$ tails. So, player 1 wins if and only if he gets at least $n-m$ heads in the first $n-m + n-l -1$ flips. This is computed using the binomial formula and summing:
+$$ P(\text{Player 1 wins}) = \sum_{i=n-m}^{n-m+n-l-1} \binom{n-m+n-l-1}{i} (\frac{1}{2})^{n-m+n-l-1}$$
+
+
+
+
+\vspace{1pc}
+
+
+% Problem 4
+\item
+
+ a) Notice:
+ \begin{align*}
+\mu = E[X] = \int_{\mathbb{R}^{d \times d}} x d\mu_X \\
+= \int_{\mathbb{R}^d}...\int_{\mathbb{R}^d} (\sum_{i=1}^n a_i x_i) P(X_1=x_1, ..., X_n = x_n) \\
+= \int_{\mathbb{R}^d}...\int_{\mathbb{R}^d}a_1x_1 P(X_1=x_1, ..., X_n = x_n) +... +\int_{\mathbb{R}^d}...\int_{\mathbb{R}^d}a_nx_n P(X_1=x_1, ..., X_n = x_n) \\ 
+= \int_{\mathbb{R}^d}a_1x_1 P(X_1=x_1) +... +\int_{\mathbb{R}^d}a_nx_n P(X_n = x_n) \\
+= \sum_{i=1}^n \int_{\mathbb{R}^d} a_i x_i d\mu_{X_i} 
+= \sum_{i=1}^n a_i \int_{\mathbb{R}^d} x_i d\mu_{X_i} 
+= \sum_{i=1}^n a_i E[X_i]
+= \sum_{i=1}^n a_i \mu_i \in \mathbb{R}^d
+ \end{align*}
+
+\vspace{1pc}
+
+b) Notice: 
+\begin{align*}
+Var(X) =  E[(X - \mu)^T(X-\mu)] \\
+= E[(X^T - \mu^T)(X - \mu)] = E[X^TX - \mu^T\mu] = E[X^TX] - \mu^T\mu
+\end{align*}
+Thus, we first compute:
+\begin{align*}
+E[X^TX] = \int_{\mathbb{R}^d}...\int_{\mathbb{R}^d} x^tx d\mu_X \\
+= \int_{\mathbb{R}^d}...\int_{\mathbb{R}^d} (\sum_{i=1}^n a_ix_i)^T (\sum_{i=1}^n a_ix_i) d\mu_X\\
+= \int_{\mathbb{R}^d}...\int_{\mathbb{R}^d} ((\sum_{i=1}^n a_i^2x_i^2) + (\sum_{1\leq i<j\leq n} 2a_ia_j x_ix_j)) d\mu_X \\
+= \int_{\mathbb{R}^d}...\int_{\mathbb{R}^d} (\sum_{i=1}^n a_i^2x_i^2) d\mu_X + \int_{\mathbb{R}^d}...\int_{\mathbb{R}^d} (\sum_{1\leq i<j\leq n} 2a_ia_j x_ix_j) d\mu_X
+\end{align*}
+Where the second term is a linear combination of expectations of products of cross terms, which split as the expectation of the products, as the $X_i$ are independent. Thus, we get:
+\begin{align*}
+Var[X] = E[X^TX] - \mu^T\mu \\
+= \int_{\mathbb{R}^d}...\int_{\mathbb{R}^d} (\sum_{i=1}^n a_i^2x_i^Tx_i) d\mu_X + \int_{\mathbb{R}^d}...\int_{\mathbb{R}^d} (\sum_{1\leq i<j\leq n} 2a_ia_j x_i^Tx_j) d\mu_X - (\sum_{i=1}^n a_i \mu_i)^T(\sum_{i=1}^n a_i \mu_i)\\
+= \sum_{i=1}^n (a_i^2 \int_{\mathbb{R}^d} x_i^Tx_i P(X_i=x_i)) +  (\sum_{1\leq i<j\leq n} 2a_ia_j \mu_i^T\mu_j)  - (\sum_{i=1}^n a_i^2\mu_i^T\mu_i) - (\sum_{1\leq i < j \leq n} 2a_ia_j\mu_i^T\mu_j)  \\
+\text{(Where, we collect terms here using the fact that  } \mu_i^T\mu_j = \mu_j^T\mu_i \text{)}\\
+= \sum_{i=1}^n a_i^2 E[X_i^TX_i] - \sum_{i=1}^n a_i^2\mu_i^T\mu_i = \sum_{i=1}^n a_i^2(E[X_i^TX_i] - \mu_i^T\mu_i) = \sum_{i=1}^n a_i^2\Sigma_i   \in \mathbb{R}^{d \times d}
+\end{align*}
+Now, if $Cov[X_1, X_2] = \Lambda$, then the $E[X_1^TX_2]$ would not split above, giving us an extra term at the end of $2a_1a_2(E[X_1^TX_2] - \mu_1^T\mu_2) = 2a_1a_2\Lambda$, that would be added to the variance computed above. 
+
+
+\vspace{1pc}
+
+%Problem 5
+\item
+a) 
+Let $X_A = 1$ if coin $A$ is heads and $0$ otherwise. Define $X_B$ and $X_C$ similarly. Then, $E[X] = E[X_A + X_B + X_C] = E[X_A] + E[X_B] + E[X_C] = .75 + .50 + .25 = 1.5$.
+
+\vspace{1pc}
+b) Let $X$ be the event that you flipped 3 Heads and 2 Tails. And, let $A$, $B$, and $C$ be the events that you select those coins, respectively. Then, 
+
+
+\begin{align*}
+P(C|X) = \frac{P(X|C)P(C)}{P(X|A)P(A) + P(X|B)P(B) + P(X|C)P(C)} \\
+= \frac{ (1/3) \binom{5}{3} (1/4)^3(3/4)^2}{ (1/3) \binom{5}{3}(3/4)^3(1/4)^2 + (1/3)\binom{5}{3}(1/2)^5 + (1/3) \binom{5}{3}(1/4)^3(3/4)^2 } \\
+= \frac{(1/4)^3 (3/4)^2}{ (3/4)^3(1/4)^2 + (1/2)^5 + (1/4)^3(3/4)^2} = \frac{9}{68} 
+\end{align*}
+
+\vspace{1pc}
+
+
+%Problem 6
+\item
+The statement is True. Consider:
+\begin{align*}
+\sum_{z \in \Omega} P_{X|YZ}(X=x | Y=y, Z=z) P_{Z|Y}(Z=z | Y=y) \\ 
+= \sum_{z \in \Omega} \frac{P_{XYZ}(X=x, Y=y, Z=z)}{P_{YZ}(Y=y, Z=z)} \frac{P_{YZ}(Y=y, Z=z)}{P_Y(Y=y)} \\
+= \sum_{z \in \Omega} \frac{P_{XYZ}(X=x, Y=y, Z=z)}{P_Y(Y=y)} \\
+= \frac{P_{XY}(X=x, Y=y)}{P_Y(Y=y)} \\ 
+= P_{X|Y}(X=x | Y=y)
+\end{align*}
+
+\vspace{1pc}
+
+%Problem 7
+\item
+Let $X_i$ be the random variable which is 1 if you roll two sixes on the $i$th toss of two dice and $0$ otherwise. Notice then that $X_i$ is a Bernoulli random varialbe with $p = 1/36$ and that $X_i$ are indepdent in $i$. Let $X = \sum_{i=1}^{24} X_i$. Then, $X$ is a binomial random variable with $n=24$ and $p = 1/36$, and it represents the number of times you roll two sixes from 24 tosses of two dice. A player wins if $X \geq 1$, thus we wish to know the $P(X \geq 1)$. We have,
+$$ P(X \geq 1) = 1 - P(X = 0) = 1 - \binom{24}{0}(1/36)^{0}(35/36)^{24} = 1 - (\frac{35}{36})^{24} $$
+
+
+\vspace{1pc}
+
+%Problem 8
+\item
+$P$ does definte a probability measure. We check the conditions required to be a probability measure.
+
+i) $0, 1 \in [0,1] \implies P(\Omega) = P([0,1]) = 1$
+
+ii) Let $A_1, A_2, ... \in \mathcal{F}$ be disjoint and Let $A = \cup_{n=1}^{\infty} A_n$. There are four cases:
+
+\begin{enumerate}
+
+\item If $0,1 \in A$, then as the $A_n$ are disjoint, we must have $0 \in A_j$ and $1 \in A_k$ for some $j \neq k$. Then, $\sum_{i=1}^{\infty} P(A_n) = P(A_j) + P(A_k) = 1 = P(A)$, as $P(A_n) = 0$ for $n \neq j,k$. 
+
+\item If $0 \in A$, but $1 \notin A$, then $0\in A_j$ for a unique $j$. So, $\sum_{i=1}^{\infty} P(A_n) = P(A_j) = 1/2 = P(A)$, as $P(A_n) = 0$ for $n \neq j$
+
+\item Similarly, If $1 \in A$, but $0 \notin A$, then $1 \in A_j$ for a unique $j$. So, $\sum_{i=1}^{\infty} P(A_n) = P(A_j) = 1/2 = P(A)$, as $P(A_n) = 0$ for $n \neq j$
+
+\item Lastly, if $0,1 \notin A$, then we must have $0, 1 \notin A_j$ for all $j$. So, $\sum_{i=1}^{\infty} P(A_n) = P(A_j) + P(A_k) = 1 = P(A)$, as $P(A_n) = 0$ for $n \neq j,k$.
+
+\end{enumerate}
+
+Thus, we have $P(\cup_{n=1}^{\infty} A_n) = \sum_{n=1}^{\infty} P(A_n)$. 
+
+\vspace{1pc}
+
+%Problem 9
+\item
+a) Notice: $$ P(X=1, Y=1, Z=1) = P(X=1)P(Y=1|X=1)P(Z=1| X=1, Y=1) = ace$$
+And, $$P(X=1, Y=0, Z=1) = P(X=1)P(Y=0 | X=1)P(Z=1| X=1, Y=0) = a(1-c)d$$
+Thus, $P(X=1, Z=1) = \sum_y P(X=1, Y = y, Z=1) = ace + a(1-c)d$. Thus, 
+$$ P(Z=1 | X=1) = \frac{P(Z=1, X=1)}{P(X=1)} = \frac{ace + a(1-c)d}{a} = d + ce-cd$$
+
+\vspace{2pc}
+b) Now, notice:
+\begin{align*}
+P(Z=1) = \sum_{x, y} P(Z=1 | X=x, Y=y)P(Y=y|X=x)P(X=x) \\
+= e P(X=1)P(Y=1|X=1) + dP(X=1)P(Y=0|X=1) \\
++ e P(X=0)P(Y=1|X=0) + dP(X=0)P(Y=0|X=0) \\
+= eac + da(1-c) + e(1-a)b + d(1-a)(1-b) \\
+= eac + da - dac +eb -eab +d -db -ad +abd \\
+= d + ac(e-d) -ab(e-d) + b(e-d) \\
+= d + (e-d)(ac - ab + b) \\
+= d + (e-d)(a(c-b) +b)
+\end{align*}
+
+
+
+
+\vspace{1pc}
+
+
+%Problem 10
+\item
+a) 
+For dim$=1$ and $\sigma =1$, we get sample means of 0.244, 0.040, and -0.027 for sample sizes of 10, 100, and 100. For dim$=1$ and $\sigma=10$, we get sample means of -0.58, 0.416, and 0.324  for sample sizes of 10, 100, and 1000. We notice the sample means are close to zero, as they should be due to the law of large numbers. But, they are generally slightly further away from zero for samples drawn from $\sigma=10$ than for $\sigma=1$. 
+
+b) A covariance matrix equal to the identity means that the components of the random gaussian vector are independent. That is, that $X$, $Y$, and $Z$ are independent. If the matrix is changed so that the $Cov(X,Z) = 1$, then $X$ and $Z$ will be highly dependent on each other. 
+
+
+\vspace{1pc}
+
+\item
+Bonus
+
+a) We first show that as $n \rightarrow \infty$, the volume of a hypercube in $\mathbb{R}^n$ is concentrated in the corners. To do this, it suffices to show the ratio of the volume of an $n$-sphere to a $n$-hypercube goes to zero as $n \rightarrow \infty$. We use the formula for the volume of a $n$-sphere, which is written with the Gamma function. We recall that $\Gamma$ grows as $(n-1)!$ Let $V_S$ be the volume of the $n$-sphere, and $V_C$ be the volume of the $n$-hypercube. We then have:
+
+$$ \lim_{n \rightarrow \infty} \frac{V_S}{V_C} = 
+\lim_{n \rightarrow \infty} \frac{ \frac{n \pi^{n/2} a^{n-1}}{\Gamma(n/2 +1)}}{(2a)^n}
+= \lim_{n \rightarrow \infty} \frac{n \pi^{n/2} a^{n-1}}{n! 2^n a^n} \rightarrow 0 $$
+as the factorial in the denominator easily dominates the exponentials in the numerator. 
+
+Next, we show that not only is this volume concentrated in the corners, the corners themselves become long spikes. To do this, it suffices to show that the ratio of the distrance from the center of the cube to the corner to the perpindicular distance to one of the sides is $\infty$. Let $D_c$ be the distance to the corner and $D_s$ be the distance to the side. We have:
+$$ \lim_{n \rightarrow \infty} \frac{D_c}{D_s} = \lim_{n \rightarrow \infty} \frac{\sqrt{na^2}}{a} = \lim_{n \rightarrow \infty} \sqrt{n} \rightarrow \infty $$
+
+
+b) It suffices to show that the ratio of the volume of the thin shell around the $n$-sphere to the volume of the $n$-sphere goes to 1 as $n \rightarrow \infty$. We have for $\epsilon$ very small, but fixed:
+$$ \lim_{n \rightarrow \infty} \frac{\frac{n \pi^{n/2} a^{n-1} }{\Gamma(n/2 +1)} -  \frac{n \pi^{n/2} (a- \epsilon)^{n-1} }{\Gamma(n/2 +1)}}{\frac{n \pi^{n/2} a^{n-1} }{\Gamma(n/2 +1)}}
+=   \lim_{n \rightarrow \infty} \frac{a^{n-1} - (a-\epsilon)^{n-1}}{a^{n-1}}
+= \lim_{n \rightarrow \infty} 1 - \frac{(a-\epsilon)^{n-1}}{a^{n-1} } \rightarrow 1 $$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{enumerate}
+\end{document}
